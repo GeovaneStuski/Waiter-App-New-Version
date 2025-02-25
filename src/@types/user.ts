@@ -3,5 +3,7 @@ export type User = {
   name: string,
   email: string,
   password: string,
-  position: 'admin' | 'waiter',
+  position: Position,
 }
+
+export type Position = 'admin' | 'waiter'
