@@ -10,6 +10,9 @@ import axios from "axios"
 import { toast } from 'sonner'
 import { cookiesName } from "@/utils/cookiesNames"
 import { setCookie } from "cookies-next/client"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { delay } from "@/utils/delay"
 
 const formSchema = z.object({
   email: z.string().min(1, 'campo obrigatório'),
@@ -17,6 +20,10 @@ const formSchema = z.object({
 })
 
 export function useSignin() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema)
   });
@@ -27,22 +34,30 @@ export function useSignin() {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
+      setIsLoading(true);
+
       const response = await Signin(data);
 
       setCookie(cookiesName.NEXT_AUTH_AUTHORIZATION, response.token);
 
       toast.success('Logado com sucesso!');
+
+      router.push('/home')
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.status === 400) {
           toast.error('Credenciais inválidas')
         }
       }
+    } finally {
+      await delay(200);
+      setIsLoading(false);
     }
   }
 
   return {
     form,
-    onSubmit
+    onSubmit,
+    isLoading
   }
 }

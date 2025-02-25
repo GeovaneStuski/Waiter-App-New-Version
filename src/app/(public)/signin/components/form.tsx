@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export function Form() {
-  const { form, onSubmit } = useSignin();
+  const { form, onSubmit, isLoading } = useSignin();
 
   const { handleSubmit, formState: { errors }, watch } = form;
+
+  const isFormValid = Object.keys(errors).length > 0 || !watch('email') || !watch('password')
 
   return (
     <FormProvider {...form}>
@@ -34,7 +36,13 @@ export function Form() {
           <Field.Error />
         </Field.Root>
 
-        <Button disabled={Object.keys(errors).length > 0 || !watch('email') || !watch('password')} className="w-full rounded-full h-12 bg-red-500 hover:bg-red-400 disabled:bg-zinc-400">Fazer Login</Button>
+        <Button
+          isLoading={isLoading}
+          disabled={isFormValid}
+          size='full'
+        >
+          Fazer Login
+        </Button>
       </form>
     </FormProvider>
   )

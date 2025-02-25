@@ -2,28 +2,38 @@
 
 import { AlertDialog, AlertDialogContent, AlertDialogTrigger, AlertDialogTitle, AlertDialogHeader, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { PowerIcon } from "lucide-react";
-import { deleteCookie } from 'cookies-next/server'
+import { deleteCookie } from 'cookies-next/client'
 import { cookiesName } from "@/utils/cookiesNames";
+import { useRouter } from "next/navigation";
 
-export const Logout = () => (
-  <AlertDialog>
-    <AlertDialogTrigger className='size-[108px] hover:text-zinc-600 flex duration-200 items-center justify-center flex-col gap-2 font-semibold text-zinc-500 text-sm'>
-      <PowerIcon className='size-6' />
+export const Logout = () => {
+  const router = useRouter();
 
-      <span>Sair</span>
-    </AlertDialogTrigger>
-    <AlertDialogContent>
-      <AlertDialogHeader>
-        <AlertDialogTitle>Deseja sair?</AlertDialogTitle>
-      </AlertDialogHeader>
+  function handleLogout() {
+    deleteCookie(cookiesName['NEXT_AUTH_AUTHORIZATION']);
+    router.push('/signin')
+  };
 
-      <AlertDialogDescription>Tem certeza que deseja sair de sua conta?</AlertDialogDescription>
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger className='size-[108px] hover:text-zinc-600 flex duration-200 items-center justify-center flex-col gap-2 font-semibold text-zinc-500 text-sm'>
+        <PowerIcon className='size-6' />
 
-      <AlertDialogFooter className="gap-4">
-        <AlertDialogCancel>Manter-se conectado</AlertDialogCancel>
+        <span>Sair</span>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Deseja sair?</AlertDialogTitle>
+        </AlertDialogHeader>
 
-        <AlertDialogAction onClick={() => deleteCookie(cookiesName['NEXT_AUTH_AUTHORIZATION'])}>Sair</AlertDialogAction>
-      </AlertDialogFooter>
-    </AlertDialogContent>
-  </AlertDialog>
-) 
+        <AlertDialogDescription>Tem certeza que deseja sair de sua conta?</AlertDialogDescription>
+
+        <AlertDialogFooter className="gap-4">
+          <AlertDialogCancel>Manter-se conectado</AlertDialogCancel>
+
+          <AlertDialogAction onClick={handleLogout}>Sair</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+} 
