@@ -1,3 +1,3 @@
 export function delay(delay?: number) {
-  return new Promise((resolve) => setTimeout(resolve, delay || 200))
+  return new Promise((resolve) => setTimeout(resolve, delay || 200));
 }

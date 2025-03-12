@@ -1,7 +1,7 @@
-import { Order } from "@/@types/order";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { priceFormatter } from "@/utils/price-formatter";
+import { Order } from '@/@types/order';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { priceFormatter } from '@/utils/price-formatter';
 
 type Props = {
   order: Order;
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export function OrdersCard({ order, status }: Props) {
-  const totalPrice = order.products.reduce((acc, product) => acc + (product.product.price * product.quantity), 0)
+  const totalPrice = order.products.reduce((acc, product) => acc + (product.product.price * product.quantity), 0);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -63,5 +63,5 @@ export function OrdersCard({ order, status }: Props) {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

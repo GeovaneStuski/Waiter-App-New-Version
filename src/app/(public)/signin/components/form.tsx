@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { FormProvider } from "react-hook-form";
-import { useSignin } from "../useSignin";
-import { Field } from "@/components/field";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { FormProvider } from 'react-hook-form';
+import { useSignin } from '../useSignin';
+import { Field } from '@/components/field';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export function Form() {
   const { form, onSubmit, isLoading } = useSignin();
 
   const { handleSubmit, formState: { errors }, watch } = form;
 
-  const isFormValid = Object.keys(errors).length > 0 || !watch('email') || !watch('password')
+  const isFormValid = Object.keys(errors).length > 0 || !watch('email') || !watch('password');
 
   return (
     <FormProvider {...form}>
@@ -45,5 +45,5 @@ export function Form() {
         </Button>
       </form>
     </FormProvider>
-  )
+  );
 }

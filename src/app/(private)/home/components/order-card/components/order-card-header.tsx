@@ -9,5 +9,5 @@ export function OrderCardHeader({ icon, title }: Props) {
       <span>{icon}</span>
       <span className="font-semibold">{title}</span>
     </div>
-  )
+  );
 }

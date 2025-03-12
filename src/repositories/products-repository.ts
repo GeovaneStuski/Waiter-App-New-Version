@@ -1,6 +1,6 @@
-import { Product } from "@/@types/product";
-import { http as server } from "@/utils/server-http";
-import { http as client } from "@/utils/client-http";
+import { Product } from '@/@types/product';
+import { http as server } from '@/utils/server-http';
+import { http as client } from '@/utils/client-http';
 
 export const ProductsRepository = {
   list: async () => {
@@ -13,4 +13,4 @@ export const ProductsRepository = {
 
     return response.data;
   }
-}
+};

@@ -1,5 +1,5 @@
-import { cookiesName } from "@/utils/cookiesNames";
-import { NextRequest, NextResponse } from "next/server";
+import { cookiesName } from '@/utils/cookiesNames';
+import { NextRequest, NextResponse } from 'next/server';
 
 const publicRoutes = ['signin'];
 
@@ -10,13 +10,13 @@ export function authMiddleware(req: NextRequest, callback: () => void) {
 
   if (publicRoutes.includes(mainEndpoint)) {
     if (token) {
-      url.pathname = '/home'
-      return NextResponse.redirect(url)
+      url.pathname = '/home';
+      return NextResponse.redirect(url);
     }
   } else {
     if (!token) {
-      url.pathname = '/signin'
-      return NextResponse.redirect(url)
+      url.pathname = '/signin';
+      return NextResponse.redirect(url);
     }
   }
 

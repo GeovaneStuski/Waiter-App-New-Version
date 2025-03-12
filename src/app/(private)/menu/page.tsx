@@ -1,8 +1,8 @@
-import { NotepadText } from "lucide-react";
-import { PageHeader } from "../components/page-header";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ProductTable } from "./components/ProductTable";
-import { TabsContent } from "@radix-ui/react-tabs";
+import { NotepadText } from 'lucide-react';
+import { PageHeader } from '../components/page-header';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ProductTable } from './components/ProductTable';
+import { TabsContent } from '@radix-ui/react-tabs';
 
 const tabs = [
   {
@@ -41,5 +41,5 @@ export default async function MenuPage() {
       </Tabs>
 
     </div>
-  )
+  );
 }

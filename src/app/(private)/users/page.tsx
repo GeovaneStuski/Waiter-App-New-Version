@@ -1,5 +1,5 @@
-import { UsersRoundIcon } from "lucide-react";
-import { PageHeader } from "../components/page-header";
+import { UsersRoundIcon } from 'lucide-react';
+import { PageHeader } from '../components/page-header';
 
 
 export default async function HomePage() {
@@ -12,5 +12,5 @@ export default async function HomePage() {
       />
 
     </div>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import { PropsWithChildren } from "react";
-import { Sidebar } from "./components/sidebar";
+import { PropsWithChildren } from 'react';
+import { Sidebar } from './components/sidebar';
 
 export default function PrivateLayout({ children }: PropsWithChildren) {
   return (

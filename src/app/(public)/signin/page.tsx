@@ -1,5 +1,5 @@
-import { Header } from "./components/header";
-import { Form } from "./components/form";
+import { Header } from './components/header';
+import { Form } from './components/form';
 
 export default function SignInPage() {
   return (
@@ -8,5 +8,5 @@ export default function SignInPage() {
 
       <Form />
     </div>
-  )
+  );
 }

@@ -9,5 +9,5 @@ export function Header() {
         <span className="font-thin">APP</span>
       </div>
     </div>
-  )
+  );
 }

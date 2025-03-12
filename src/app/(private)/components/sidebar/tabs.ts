@@ -1,4 +1,4 @@
-import { CircleUserIcon, HouseIcon, NotepadTextIcon, ScrollTextIcon, UsersIcon } from "lucide-react"
+import { CircleUserIcon, HouseIcon, NotepadTextIcon, ScrollTextIcon, UsersIcon } from 'lucide-react';
 
 export const tabs = [
   {
@@ -31,4 +31,4 @@ export const tabs = [
     icon: CircleUserIcon,
     position: 'bottom'
   },
-] as const
+] as const;

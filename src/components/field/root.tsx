@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
-import { getNestedValue } from "@/utils/get-nested-values";
-import { ComponentProps, createContext, useContext, useMemo } from "react";
-import { useFormContext } from "react-hook-form";
+import { cn } from '@/lib/utils';
+import { getNestedValue } from '@/utils/get-nested-values';
+import { ComponentProps, createContext, useContext, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 type FieldContext = {
   name: string;
@@ -25,7 +25,7 @@ export function FieldRoot({ name, className, ...props }: FieldRootProps) {
     <Context.Provider value={context}>
       <div data-error={!!errorMessage} className={cn('group flex flex-col gap-1', className)} {...props} />
     </Context.Provider>
-  )
+  );
 }
 
 export const useFieldContext = () => useContext(Context);

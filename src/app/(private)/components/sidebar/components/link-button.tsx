@@ -1,5 +1,5 @@
-import { LucideIcon } from "lucide-react"
-import Link from "next/link";
+import { LucideIcon } from 'lucide-react';
+import Link from 'next/link';
 
 type LinkButtonProps = {
   icon: LucideIcon;
@@ -13,4 +13,4 @@ export const LinkButton = ({ link, active, icon: Icon, label }: LinkButtonProps)
     <Icon className="size-6" />
     <span className="font-semibold text-sm">{label}</span>
   </Link>
-)
+);

@@ -1,4 +1,4 @@
-import { LucideIcon } from "lucide-react"
+import { LucideIcon } from 'lucide-react';
 
 type PageHeaderProps = {
   icon: LucideIcon;
@@ -17,5 +17,5 @@ export function PageHeader({ icon: Icon, title, description }: PageHeaderProps) 
 
       <p className="text-gray-500 text-base font-medium">{description}</p>
     </div>
-  )
+  );
 }

@@ -1,14 +1,14 @@
-import Logo from '@/assets/images/sidebar-logo.svg'
-import Image from "next/image"
+import Logo from '@/assets/images/sidebar-logo.svg';
+import Image from 'next/image';
 import { tabs } from './tabs';
 import { LinkButton } from './components/link-button';
-import { headers } from 'next/headers'
+import { headers } from 'next/headers';
 import { Logout } from './components/logout';
 
 export function Sidebar() {
   const headersList = headers();
 
-  const pathname = headersList.get('x-current-path')
+  const pathname = headersList.get('x-current-path');
 
   const middleTabs = tabs.filter(tab => tab.position === 'middle');
   const bottomTabs = tabs.filter(tab => tab.position === 'bottom');
@@ -31,5 +31,5 @@ export function Sidebar() {
         <Logout />
       </div>
     </div>
-  )
+  );
 }

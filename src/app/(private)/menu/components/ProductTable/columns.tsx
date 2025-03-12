@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-'use client'
+'use client';
 
-import { Category } from "@/@types/category"
-import { Product } from "@/@types/product"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
-import { ProductsRepository } from "@/repositories/products-repository"
-import { priceFormatter } from "@/utils/price-formatter"
-import { ColumnDef } from "@tanstack/react-table"
-import { Edit2Icon, Trash2Icon } from "lucide-react"
+import { Category } from '@/@types/category';
+import { Product } from '@/@types/product';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { ProductsRepository } from '@/repositories/products-repository';
+import { priceFormatter } from '@/utils/price-formatter';
+import { ColumnDef } from '@tanstack/react-table';
+import { Edit2Icon, Trash2Icon } from 'lucide-react';
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -15,24 +15,24 @@ export const columns: ColumnDef<Product>[] = [
     header: 'Imagem',
     size: 20,
     cell: () => (
-      <img className="w-12 h-8 object-cover  rounded-lg" src={"https://www.minhareceita.com.br/app/uploads/2022/12/Dpizza-de-pepperoni-caseira-portal-minha-receita.jpg"} />
+      <img className="w-12 h-8 object-cover  rounded-lg" src={'https://www.minhareceita.com.br/app/uploads/2022/12/Dpizza-de-pepperoni-caseira-portal-minha-receita.jpg'} />
     )
   },
   {
     accessorKey: 'name',
-    header: "Nome",
+    header: 'Nome',
     size: 450
   },
   {
     accessorKey: 'category',
-    header: "Categoria",
+    header: 'Categoria',
     size: 20,
 
     cell: ({ getValue }) => `${(getValue() as Category).icon} ${(getValue() as Category).name}`
   },
   {
     accessorKey: 'price',
-    header: "Preço",
+    header: 'Preço',
     size: 20,
 
     cell: ({ getValue }) => priceFormatter(getValue() as number)
@@ -78,7 +78,7 @@ export const columns: ColumnDef<Product>[] = [
             </AlertDialogContent>
           </AlertDialog>
         </div>
-      )
+      );
     }
   },
-]
+];

@@ -1,8 +1,8 @@
 
-import { DataTable } from "@/components/data-table";
-import { ProductsRepository } from "@/repositories/products-repository";
-import { columns } from "./columns";
-import { ProductModal } from "../product-modal";
+import { DataTable } from '@/components/data-table';
+import { ProductsRepository } from '@/repositories/products-repository';
+import { columns } from './columns';
+import { ProductModal } from '../product-modal';
 
 export async function ProductTable() {
   const products = await ProductsRepository.list();
@@ -19,5 +19,5 @@ export async function ProductTable() {
 
       <DataTable data={products} columns={columns} />
     </div>
-  )
+  );
 }

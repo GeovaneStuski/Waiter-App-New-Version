@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { AlertDialog, AlertDialogContent, AlertDialogTrigger, AlertDialogTitle, AlertDialogHeader, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
-import { PowerIcon } from "lucide-react";
-import { deleteCookie } from 'cookies-next/client'
-import { cookiesName } from "@/utils/cookiesNames";
-import { useRouter } from "next/navigation";
+import { AlertDialog, AlertDialogContent, AlertDialogTrigger, AlertDialogTitle, AlertDialogHeader, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
+import { PowerIcon } from 'lucide-react';
+import { deleteCookie } from 'cookies-next/client';
+import { cookiesName } from '@/utils/cookiesNames';
+import { useRouter } from 'next/navigation';
 
 export const Logout = () => {
   const router = useRouter();
 
   function handleLogout() {
     deleteCookie(cookiesName['NEXT_AUTH_AUTHORIZATION']);
-    router.push('/signin')
+    router.push('/signin');
   };
 
   return (
@@ -35,5 +35,5 @@ export const Logout = () => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
-} 
+  );
+}; 

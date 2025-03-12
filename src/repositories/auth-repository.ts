@@ -1,5 +1,5 @@
-import { SigninPayload, SigninResponse } from "@/@types/auth-repository";
-import { http } from "@/utils/client-http";
+import { SigninPayload, SigninResponse } from '@/@types/auth-repository';
+import { http } from '@/utils/client-http';
 
 export const AuthRepository = {
   Signin: async (body: SigninPayload) => {
@@ -7,4 +7,4 @@ export const AuthRepository = {
 
     return response.data;
   }
-}
+};

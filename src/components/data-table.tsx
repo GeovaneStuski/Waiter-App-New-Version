@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table'
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 
 type Props<TData> = {
   columns: ColumnDef<TData>[];
@@ -41,5 +41,5 @@ export function DataTable<TData>({ columns, data }: Props<TData>) {
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }

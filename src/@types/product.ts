@@ -1,4 +1,4 @@
-import { Category } from './category'
+import { Category } from './category';
 import { Ingredient } from './ingredients';
 
 export type Product = {

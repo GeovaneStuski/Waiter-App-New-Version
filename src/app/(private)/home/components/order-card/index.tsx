@@ -1,5 +1,5 @@
-import { Order } from "@/@types/order";
-import { OrderCard } from "./order-card";
+import { Order } from '@/@types/order';
+import { OrderCard } from './order-card';
 
 type CardProps = {
   icon: string;
@@ -16,5 +16,5 @@ export function Card({ icon, title, orders }: CardProps) {
         {orders.map(order => <OrderCard.Card key={order._id} status={{ icon, title }} order={order} />)}
       </div>
     </OrderCard.Container>
-  )
+  );
 }

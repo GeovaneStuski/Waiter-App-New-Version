@@ -1,7 +1,7 @@
-import { HouseIcon } from "lucide-react";
-import { PageHeader } from "../components/page-header";
-import { Card } from "./components/order-card";
-import { OrdersRepository } from "@/repositories/orders-repository";
+import { HouseIcon } from 'lucide-react';
+import { PageHeader } from '../components/page-header';
+import { Card } from './components/order-card';
+import { OrdersRepository } from '@/repositories/orders-repository';
 
 const cards = [
   {
@@ -19,17 +19,17 @@ const cards = [
     title: 'Pronto',
     type: 'DONE'
   },
-] as const
+] as const;
 
 export default async function HomePage() {
   const orders = await OrdersRepository.list()
-    .catch((e) => console.log(e.config.headers)) || []
+    .catch((e) => console.log(e.config.headers)) || [];
 
   const filteredOrders = {
     DONE: orders.filter(order => order.status === 'DONE'),
     IN_PRODUCTION: orders.filter(order => order.status === 'IN_PRODUCTION'),
     WAITING: orders.filter(order => order.status === 'WAITING'),
-  } as const
+  } as const;
 
   return (
     <div className="w-full h-full">
@@ -45,5 +45,5 @@ export default async function HomePage() {
         ))}
       </div>
     </div>
-  )
+  );
 }
