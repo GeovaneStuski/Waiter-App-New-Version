@@ -10,11 +10,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "rounded-full bg-red-500 text-white font-semibold min-w-24 flex gap-2 enabled:hover:bg-red-400 enabled:active:bg-red-600",
-        destructive: "text-red-500 px-0",
+        default: "rounded-full px-12 bg-red-500 text-white font-semibold min-w-24 flex gap-2 enabled:hover:bg-red-400 enabled:active:bg-red-600",
+        destructive: "text-red-500 px-0 !py-0",
       },
       size: {
-        default: "h-11 font-semibold",
+        default: "py-3.5 font-semibold text-base",
         full: "h-12 w-full"
       },
     },
@@ -29,11 +29,11 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, children, isLoading, disabled, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, children, isLoading = false, disabled, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp

@@ -1,4 +1,4 @@
-import { CircleUserIcon, HouseIcon, NotepadText, ScrollText, UsersIcon } from "lucide-react"
+import { CircleUserIcon, HouseIcon, NotepadTextIcon, ScrollTextIcon, UsersIcon } from "lucide-react"
 
 export const tabs = [
   {
@@ -10,13 +10,13 @@ export const tabs = [
   {
     link: '/history',
     label: 'Histórico',
-    icon: ScrollText,
+    icon: ScrollTextIcon,
     position: 'middle'
   },
   {
-    link: '/order',
+    link: '/menu',
     label: 'Cardápio',
-    icon: NotepadText,
+    icon: NotepadTextIcon,
     position: 'middle'
   },
   {

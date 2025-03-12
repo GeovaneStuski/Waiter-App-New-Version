@@ -1,5 +1,5 @@
 import { SigninPayload, SigninResponse } from "@/@types/auth-repository";
-import { http } from "@/utils/http";
+import { http } from "@/utils/client-http";
 
 export const AuthRepository = {
   Signin: async (body: SigninPayload) => {

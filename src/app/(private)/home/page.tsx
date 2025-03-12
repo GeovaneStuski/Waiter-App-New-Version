@@ -1,6 +1,6 @@
 import { HouseIcon } from "lucide-react";
 import { PageHeader } from "../components/page-header";
-import { Card } from "./components/card";
+import { Card } from "./components/order-card";
 import { OrdersRepository } from "@/repositories/orders-repository";
 
 const cards = [
@@ -23,7 +23,7 @@ const cards = [
 
 export default async function HomePage() {
   const orders = await OrdersRepository.list()
-    .catch((e) => console.error(e)) || []
+    .catch((e) => console.log(e.config.headers)) || []
 
   const filteredOrders = {
     DONE: orders.filter(order => order.status === 'DONE'),
@@ -41,7 +41,7 @@ export default async function HomePage() {
 
       <div className="w-full flex gap-8">
         {cards.map(card => (
-          <Card order={filteredOrders[card.type]} {...card} key={card.type} />
+          <Card orders={filteredOrders[card.type]} {...card} key={card.type} />
         ))}
       </div>
     </div>
