@@ -10,6 +10,7 @@ export function RootProviders({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
+
       <Toaster richColors position="top-right" />
     </QueryClientProvider>
   );

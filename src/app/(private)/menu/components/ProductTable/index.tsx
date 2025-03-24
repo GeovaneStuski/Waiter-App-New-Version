@@ -6,6 +6,7 @@ import { ProductModal } from '../product-modal';
 
 export async function ProductTable() {
   const products = await ProductsRepository.list();
+ 
   return (
     <div>
       <header className="w-full flex justify-between  mb-4 items-center">
@@ -16,7 +17,7 @@ export async function ProductTable() {
 
         <ProductModal buttonLabel="Criar Produto"/>
       </header>
-
+      
       <DataTable data={products} columns={columns} />
     </div>
   );

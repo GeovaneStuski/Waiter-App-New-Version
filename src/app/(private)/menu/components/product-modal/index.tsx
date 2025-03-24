@@ -1,38 +1,55 @@
+'use client';
+
+import { Product } from '@/@types/product';
 import { Button } from '@/components/ui/button';
+import { LucideIcon } from 'lucide-react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ProductModalImageContainer } from './components/image-container';
+import { ProductModalIngredients } from './components/ingredients';
+import { useQuery } from 'react-query';
+import { IngredientsRepository } from '@/repositories/ingredients-repository';
+import { queryKeys } from '@/utils/query-keys';
+import { useProductModal } from './use-product-modal';
+import { FormProvider } from 'react-hook-form';
 
 type Props = {
-  buttonLabel: string;
+  buttonLabel: string | LucideIcon; 
+  product?: Product;
 }
 
-export function ProductModal({ buttonLabel }: Props) {
+export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
+  const { form } = useProductModal(product);
+
+  const { data: ingredients } = useQuery({
+    queryKey: queryKeys.ingredients(),
+    queryFn: async () => IngredientsRepository.list(),
+  });
+
+  const Trigger = typeof ButtonLabel === 'string' ? ButtonLabel : <ButtonLabel className="size-5 text-zinc-500"/>;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='destructive' className="text-sm">Novo Produto</Button>
+        <Button variant='destructive' className="text-sm">{Trigger}</Button>
       </DialogTrigger>
 
       <DialogContent size="large">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-semibold">Novo Produto</DialogTitle>
+        <DialogHeader onClose={() => form.reset()}>
+          <DialogTitle className="text-2xl font-semibold">{product ? 'Editar' : 'Novo'} Produto</DialogTitle>
         </DialogHeader>
 
-        <div className="flex w-full h-[680px] gap-8">
-          <div className="w-full h-full">
-            <DialogTitle className="text-lg font-semibold text-gray-500">Image</DialogTitle>
-          </div>
+        <FormProvider {...form}>
+          <form className='h-[680px] w-full flex gap-4'>
+            <div className='w-full'>
+              <ProductModalImageContainer isLoading={false}/>
+            </div>
 
-          <div className="w-full h-full">
-            <header className="flex justify-between items-center">
-              <DialogTitle className="text-lg font-semibold text-gray-500">Ingredientes</DialogTitle>
-
-              <Button variant='destructive' className="text-sm">Novo ingrediente</Button>
-            </header>
-          </div>
-        </div>
+            <ProductModalIngredients ingredients={ingredients}/>
+          </form>
+        </FormProvider>
 
         <DialogFooter>
-          <Button>{buttonLabel}</Button>
+          <Button>{product ? 'Editar' : 'Novo'} Produto</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

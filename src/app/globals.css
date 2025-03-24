@@ -6,14 +6,39 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body, html {
-  height: 100%
+body,
+html {
+  height: 100%;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #efefef;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
 }
 
 @layer base {
@@ -80,8 +105,6 @@ body, html {
     @apply bg-background text-foreground;
   }
 }
-
-
 
 @layer base {
   * {
