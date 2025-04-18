@@ -1,10 +1,6 @@
-import { Order } from '@/@types/order';
-import { http } from '@/utils/server-http';
+import { Order } from '@/@types/entities/order';
+import { http } from '@/utils/http';
 
 export const OrdersRepository = {
-  list: async () => {
-    const response = await http.get<Order[]>('/orders');
-
-    return response.data;
-  }
+  list: async () => http.get<Order[]>('/orders')
 };
