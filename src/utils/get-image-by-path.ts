@@ -1,3 +1,5 @@
+const URL = process.env.NEXT_PUBLIC_API_URL;
+
 export function getImageByPath(path: string): string {
-  return `http://localhost:3001/uploads/${path}`;
+  return `${URL}/uploads/${path}`;
 }

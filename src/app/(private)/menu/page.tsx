@@ -7,17 +7,11 @@ import { TabsContent } from '@radix-ui/react-tabs';
 const tabs = [
   {
     key: 'product',
-    label: 'Produto',
-    content: ProductTable,
-  },
-  {
-    key: 'category',
-    label: 'Categoria',
-    content: null,
-  },
+    label: 'Produto'
+  }
 ] as const;
 
-export default async function MenuPage() {
+export default function MenuPage() {
   return (
     <div className="w-full h-full">
       <PageHeader
@@ -33,11 +27,9 @@ export default async function MenuPage() {
           ))}
         </TabsList>
 
-        {tabs.map(({ key, content: Content }) => (
-          <TabsContent key={key} value={key}>
-            {Content && <Content />}
-          </TabsContent>
-        ))}
+        <TabsContent value='product'>
+          <ProductTable/>
+        </TabsContent>
       </Tabs>
 
     </div>

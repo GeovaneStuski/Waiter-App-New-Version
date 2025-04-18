@@ -1,4 +1,4 @@
-import { Ingredient } from '@/@types/ingredients';
+import { Ingredient } from '@/@types/entities/ingredients';
 import { http } from '@/utils/http';
 
 export const IngredientsRepository = {

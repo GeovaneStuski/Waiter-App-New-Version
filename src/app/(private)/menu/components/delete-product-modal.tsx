@@ -1,4 +1,4 @@
-import { Product } from '@/@types/product';
+import { Product } from '@/@types/entities/product';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { ProductsRepository } from '@/repositories/products-repository';
 import { priceFormatter } from '@/utils/price-formatter';
@@ -9,6 +9,13 @@ type Props = {
 }
 
 export function DeleteProductModal({ product }: Props) {
+  async function handleDeleteProduct() {
+    try {
+      await ProductsRepository.delete(product._id);
+    } catch(error) {
+      console.error(error);
+    }
+  }
   return (
     <AlertDialog>
       <AlertDialogTrigger>
@@ -35,7 +42,7 @@ export function DeleteProductModal({ product }: Props) {
 
         <AlertDialogFooter className="w-full flex !justify-between items-center">
           <AlertDialogCancel>Manter Produto</AlertDialogCancel>
-          <AlertDialogAction onClick={() => ProductsRepository.delete(product._id)}>Excluir Produto</AlertDialogAction>
+          <AlertDialogAction onClick={handleDeleteProduct}>Excluir Produto</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

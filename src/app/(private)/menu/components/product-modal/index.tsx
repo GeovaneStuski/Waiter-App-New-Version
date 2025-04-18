@@ -1,6 +1,6 @@
 'use client';
 
-import { Product } from '@/@types/product';
+import { Product } from '@/@types/entities/product';
 import { Button } from '@/components/ui/button';
 import { LucideIcon } from 'lucide-react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -11,6 +11,12 @@ import { IngredientsRepository } from '@/repositories/ingredients-repository';
 import { queryKeys } from '@/utils/query-keys';
 import { useProductModal } from './use-product-modal';
 import { FormProvider } from 'react-hook-form';
+import { Field } from '@/components/field';
+import { Input } from '@/components/ui/input';
+import { FieldLabel } from '@/components/field/label';
+import { cn } from '@/lib/utils';
+import { ProductModalCategories  } from './components/categories';
+import { priceFormatter } from '@/utils/price-formatter';
 
 type Props = {
   buttonLabel: string | LucideIcon; 
@@ -18,12 +24,24 @@ type Props = {
 }
 
 export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
-  const { form } = useProductModal(product);
+  const { form, onSubmit } = useProductModal(product);
+
+  const { watch, reset, setValue, handleSubmit } = form;
 
   const { data: ingredients } = useQuery({
     queryKey: queryKeys.ingredients(),
     queryFn: async () => IngredientsRepository.list(),
   });
+
+  function handleChangePrice(e: React.ChangeEvent<HTMLInputElement>) {
+    let rawValue = e.target.value.replace(/[^\d]/g, '');
+  
+    if (rawValue) {
+      rawValue = (Number(rawValue) / 100).toFixed(2);
+    }
+  
+    setValue('product.price', Number(rawValue));
+  };
 
   const Trigger = typeof ButtonLabel === 'string' ? ButtonLabel : <ButtonLabel className="size-5 text-zinc-500"/>;
 
@@ -34,23 +52,55 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
       </DialogTrigger>
 
       <DialogContent size="large">
-        <DialogHeader onClose={() => form.reset()}>
-          <DialogTitle className="text-2xl font-semibold">{product ? 'Editar' : 'Novo'} Produto</DialogTitle>
-        </DialogHeader>
-
         <FormProvider {...form}>
-          <form className='h-[680px] w-full flex gap-4'>
-            <div className='w-full'>
-              <ProductModalImageContainer isLoading={false}/>
+          <form onSubmit={handleSubmit(onSubmit, console.error)} >
+            <DialogHeader onClose={() => reset()}>
+              <DialogTitle className="text-2xl font-semibold">{product ? 'Editar' : 'Novo'} Produto</DialogTitle>
+            </DialogHeader>
+
+            <div className='h-[680px] w-full flex gap-4'>
+              <div className={cn('w-full', watch('product.category') ? 'space-y-[31px]' : 'space-y-4')}>
+                <ProductModalImageContainer isLoading={false}/>
+
+                <Field.Root name='product.name'>
+                  <Field.Label>Nome do Produto</Field.Label>
+
+                  <Field.Main>
+                    <Input placeholder='Ex: Quatro Queijos'/>
+                  </Field.Main>
+                </Field.Root>
+
+                <Field.Root name='product.description'>
+                  <Field.Label>Descrição</Field.Label>
+
+                  <Field.Main>
+                    <Input placeholder='Ex: Pizza de Quatro Queijos com borda tradicional'/>
+                  </Field.Main>
+
+                  <FieldLabel>Máximo 110 caracteres</FieldLabel>
+                </Field.Root>
+
+                <Field.Root name='product.price'>
+                  <Field.Label>Preço</Field.Label>
+
+                  <Field.Main controller>
+                    {({ field: { value } }) => (
+                      <Input value={priceFormatter(value)} onChange={handleChangePrice} placeholder='R$ 00,00'/>
+                    )}
+                  </Field.Main>
+                </Field.Root>
+
+                <ProductModalCategories />
+              </div>
+
+              <ProductModalIngredients ingredients={ingredients}/>
             </div>
 
-            <ProductModalIngredients ingredients={ingredients}/>
+            <DialogFooter>
+              <Button type="submit">{product ? 'Editar' : 'Novo'} Produto</Button>
+            </DialogFooter>
           </form>
         </FormProvider>
-
-        <DialogFooter>
-          <Button>{product ? 'Editar' : 'Novo'} Produto</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

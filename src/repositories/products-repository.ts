@@ -1,13 +1,13 @@
-import { Product } from '@/@types/product';
+import { Product } from '@/@types/entities/product';
 import { http } from '../utils/http';
-import { http as client } from '@/utils/client-http';
+import { CreateOrUpdateProductPayload } from '@/@types/repositories/product';
 
 export const ProductsRepository = {
   list: async () => http.get<Product[]>('/products'),
-  
-  delete: async (id: string) => {
-    const response = await client.delete(`/products/${id}`);
 
-    return response.data;
-  }
+  create: async (data: CreateOrUpdateProductPayload) => http.post('/products', data),
+
+  update: async (id: string, data: CreateOrUpdateProductPayload) => http.put(`/products/${id}`, data),
+  
+  delete: async (id: string) => http.delete(`/products/${id}`)
 };

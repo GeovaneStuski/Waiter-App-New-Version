@@ -1,7 +1,7 @@
 'use client';
 
-import { Category } from '@/@types/category';
-import { Product } from '@/@types/product';
+import { Category } from '@/@types/entities/category';
+import { Product } from '@/@types/entities/product';
 import { priceFormatter } from '@/utils/price-formatter';
 import { ColumnDef } from '@tanstack/react-table';
 import { Edit2Icon } from 'lucide-react';

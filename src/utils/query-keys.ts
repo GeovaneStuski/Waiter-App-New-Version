@@ -1,3 +1,5 @@
 export const queryKeys = {
-  ingredients: () => ['ingredients']
+  products: () => ['products'],
+  ingredients: () => ['ingredients'],
+  categories: () => ['categories']
 };
