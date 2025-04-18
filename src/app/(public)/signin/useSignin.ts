@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useMutation } from 'react-query';
 import { AuthRepository } from '@/repositories/auth-repository';
-import { SigninPayload } from '@/@types/auth-repository';
+import { SigninPayload } from '@/@types/repositories/auth';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { cookiesName } from '@/utils/cookiesNames';
