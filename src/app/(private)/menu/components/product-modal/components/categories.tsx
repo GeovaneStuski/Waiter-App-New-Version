@@ -1,7 +1,7 @@
 import { Field } from '@/components/field';
+import { queryKeys } from '@/lib/query-keys';
 import { cn } from '@/lib/utils';
 import { CategoriesRepository } from '@/repositories/categories-repository';
-import { queryKeys } from '@/utils/query-keys';
 import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useQuery } from 'react-query';

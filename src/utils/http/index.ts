@@ -80,6 +80,8 @@ class HttpClient implements HttpClientMethods {
   private async requester<T>(props: Request) {
     const AuthCookie = await this.getCookie();
 
+    console.log({AuthCookie});
+
     const headers = new Headers();
 
     if(AuthCookie) {
@@ -109,6 +111,8 @@ class HttpClient implements HttpClientMethods {
   
           props.body = formData;
         }
+      } else {
+        headers.append('Content-Type', 'application/json');
       }
     }
 
@@ -117,18 +121,23 @@ class HttpClient implements HttpClientMethods {
       body: props.body instanceof FormData ? props.body : JSON.stringify(props.body),
       headers
     });
+
+    if(response.status >= 400) {
+      const message = await response.json();
+      throw new Error(message);
+    }
   
     return response.json() as Promise<T>;
   }
 
   private async getCookie() {
     const cookies = await getCookies();
-
-    if(typeof window !== 'undefined') {
-      return getCookie(cookiesName['NEXT_AUTH_AUTHORIZATION']);
+    
+    if(typeof window === 'undefined') {
+      return cookies.get(cookiesName['NEXT_AUTH_AUTHORIZATION'])?.value;
     }
 
-    return cookies.get(cookiesName['NEXT_AUTH_AUTHORIZATION'])?.value;
+    return getCookie(cookiesName['NEXT_AUTH_AUTHORIZATION']);
   }
 }
 

@@ -6,7 +6,7 @@ import { ProductsRepository } from '@/repositories/products-repository';
 import { columns } from './columns';
 import { ProductModal } from '../product-modal';
 import { useQuery } from 'react-query';
-import { queryKeys } from '@/utils/query-keys';
+import { queryKeys } from '@/lib/query-keys';
 
 export function ProductTable() {
   const { data: products } = useQuery({

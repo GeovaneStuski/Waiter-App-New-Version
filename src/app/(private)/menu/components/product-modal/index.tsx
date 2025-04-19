@@ -8,7 +8,6 @@ import { ProductModalImageContainer } from './components/image-container';
 import { ProductModalIngredients } from './components/ingredients';
 import { useQuery } from 'react-query';
 import { IngredientsRepository } from '@/repositories/ingredients-repository';
-import { queryKeys } from '@/utils/query-keys';
 import { useProductModal } from './use-product-modal';
 import { FormProvider } from 'react-hook-form';
 import { Field } from '@/components/field';
@@ -17,6 +16,7 @@ import { FieldLabel } from '@/components/field/label';
 import { cn } from '@/lib/utils';
 import { ProductModalCategories  } from './components/categories';
 import { priceFormatter } from '@/utils/price-formatter';
+import { queryKeys } from '@/lib/query-keys';
 
 type Props = {
   buttonLabel: string | LucideIcon; 

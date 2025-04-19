@@ -22,8 +22,9 @@ const cards = [
 ] as const;
 
 export default async function HomePage() {
-  const orders = await OrdersRepository.list()
-    .catch((e) => console.log(e.config.headers)) || [];
+  const orders = await OrdersRepository.list();
+
+  console.log(orders);
 
   const filteredOrders = {
     DONE: orders.filter(order => order.status === 'DONE'),
