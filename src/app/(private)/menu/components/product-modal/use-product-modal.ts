@@ -68,8 +68,13 @@ export function useProductModal({ product, setIsOpen }: Props) {
         console.error(error);
         toast.error("Erro ao editar o produto!");
       },
-      onSuccess: () => {
+      onSuccess: (data) => {
+        queryClient.setQueryData(
+          queryKeys.products(),
+          (oldData: Product[] | undefined) => oldData!.concat(data as Product),
+        );
         toast.success("Produto atualizado com sucesso!");
+        setIsOpen(false);
       },
     });
 

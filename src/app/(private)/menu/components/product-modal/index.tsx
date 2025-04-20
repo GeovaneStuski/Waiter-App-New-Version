@@ -95,6 +95,8 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
                   <Field.Main>
                     <Input placeholder="Ex: Quatro Queijos" />
                   </Field.Main>
+
+                  <Field.Error />
                 </Field.Root>
 
                 <Field.Root name="product.description">
@@ -105,6 +107,8 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
                   </Field.Main>
 
                   <FieldLabel>Máximo 110 caracteres</FieldLabel>
+
+                  <Field.Error />
                 </Field.Root>
 
                 <Field.Root name="product.price">
@@ -119,6 +123,8 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
                       />
                     )}
                   </Field.Main>
+
+                  <Field.Error />
                 </Field.Root>
 
                 <ProductModalCategories />
