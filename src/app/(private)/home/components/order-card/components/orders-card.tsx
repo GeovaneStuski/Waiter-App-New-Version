@@ -1,6 +1,7 @@
-import { Order } from '@/@types/order';
+import { Order } from '@/@types/entities/order';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { getImageByPath } from '@/utils/get-image-by-path';
 import { priceFormatter } from '@/utils/price-formatter';
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 
 export function OrdersCard({ order, status }: Props) {
   const totalPrice = order.products.reduce((acc, product) => acc + (product.product.price * product.quantity), 0);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -39,7 +41,7 @@ export function OrdersCard({ order, status }: Props) {
 
           {order.products.map(({ _id, product, quantity }) => (
             <div className="flex gap-3 items-center" key={_id}>
-              <img className="w-12 h-10 object-cover rounded-lg" src="https://www.minhareceita.com.br/app/uploads/2022/12/Dpizza-de-pepperoni-caseira-portal-minha-receita.jpg" alt="product-image" />
+              <img className="w-12 h-10 object-cover rounded-lg" src={getImageByPath(product.imagePath)} alt="product-image" />
 
               <div className="flex gap-3 items-start">
                 <span className="text-sm text-gray-400">{quantity}x</span>

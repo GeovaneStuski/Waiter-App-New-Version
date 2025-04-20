@@ -1,4 +1,4 @@
-import { Order } from '@/@types/order';
+import { Order } from '@/@types/entities/order';
 import { OrderCard } from './order-card';
 
 type CardProps = {

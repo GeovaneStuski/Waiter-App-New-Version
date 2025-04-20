@@ -31,7 +31,7 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { size: 'large' | 'default' }
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { size?: 'large' | 'default' }
 >(({ className, children, size = 'default', ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
@@ -56,7 +56,7 @@ const DialogHeader = ({
   children,
   onClose,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { onClose: () => void }) => (
+}: React.HTMLAttributes<HTMLDivElement> & { onClose?: () => void }) => (
   <div
     className={cn(
       'flex justify-between items-center text-center sm:text-left',

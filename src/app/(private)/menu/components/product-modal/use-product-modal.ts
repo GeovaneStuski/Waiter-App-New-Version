@@ -1,25 +1,26 @@
-'use client';
+"use client";
 
-import { Product } from '@/@types/entities/product';
-import { ProductsRepository } from '@/repositories/products-repository';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
-import { z } from 'zod';
-import { ProductFormSchemaToProduct } from './utils/mapper';
-import { CreateOrUpdateProductPayload } from '@/@types/repositories/product';
+import { Product } from "@/@types/entities/product";
+import { ProductsRepository } from "@/repositories/products-repository";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { z } from "zod";
+import { ProductFormSchemaToProduct } from "./utils/mapper";
+import { CreateOrUpdateProductPayload } from "@/@types/repositories/product";
+import { toast } from "sonner";
 
 const schema = z.object({
   product: z.object({
     id: z.string().optional(),
-    name: z.string().min(1, 'Campo obrigatório'),
-    description: z.string().min(1, 'Campo obrigatório'),
+    name: z.string().min(1, "Campo obrigatório"),
+    description: z.string().min(1, "Campo obrigatório"),
     category: z.string(),
-    price: z.coerce.number().min(1, 'Campo obrigatório'),
+    price: z.coerce.number().min(1, "Campo obrigatório"),
     image: z.any(),
     ingredients: z.array(z.string()),
-  })
+  }),
 });
 
 export type ProductModalFormData = z.infer<typeof schema>;
@@ -28,18 +29,37 @@ export function useProductModal(product?: Product) {
   const form = useForm<ProductModalFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      product: { 
-        ingredients: []
-      }}
+      product: {
+        ingredients: [],
+      },
+    },
   });
 
-  const { isLoading: isCreatingProduct, mutateAsync: createProduct } = useMutation({
-    mutationFn: (data: CreateOrUpdateProductPayload) => ProductsRepository.create(data)
-  });
+  const { isLoading: isCreatingProduct, mutateAsync: createProduct } =
+    useMutation({
+      mutationFn: async (data: CreateOrUpdateProductPayload) =>
+        ProductsRepository.create(data),
+      onError: (error) => {
+        console.error(error);
+        toast.error("Erro ao criar o produto!");
+      },
+      onSuccess: () => {
+        toast.success("Produto criado com sucesso!");
+      },
+    });
 
-  const { isLoading: isUpdatingProduct, mutateAsync: updateProduct } = useMutation({
-    mutationFn: (data: CreateOrUpdateProductPayload) => ProductsRepository.update(product!._id, data)
-  });
+  const { isLoading: isUpdatingProduct, mutateAsync: updateProduct } =
+    useMutation({
+      mutationFn: async (data: CreateOrUpdateProductPayload) =>
+        ProductsRepository.update(product!._id, data),
+      onError: (error) => {
+        console.error(error);
+        toast.error("Erro ao editar o produto!");
+      },
+      onSuccess: () => {
+        toast.success("Produto atualizado com sucesso!");
+      },
+    });
 
   const { reset } = form;
 
@@ -48,34 +68,31 @@ export function useProductModal(product?: Product) {
   }, [product]);
 
   async function onSubmit(data: ProductModalFormData) {
-    try {
-      const method = product ? updateProduct : createProduct;
+    const method = product ? updateProduct : createProduct;
 
-      const response = await method(ProductFormSchemaToProduct(data));
+    const response = await method(ProductFormSchemaToProduct(data));
 
-      return response;
-    } catch(err) {
-      console.log('Error: ', err);
-    }
+    return response;
   }
-  
+
   return {
     form,
     onSubmit,
-    isLoading: isCreatingProduct || isUpdatingProduct
+    isLoading: isCreatingProduct || isUpdatingProduct,
   };
 }
 
 function productToFormSchema(product?: Product) {
-  return { 
+  return {
     product: {
       id: product?._id,
-      ingredients: product?.ingredients.map((ingredient) => ingredient._id) || [],
+      ingredients:
+        product?.ingredients.map((ingredient) => ingredient._id) || [],
       image: product?.imagePath,
-      category: product?.category._id || '',
-      description: product?.description || '',
-      name: product?.name || '',
-      price: product?.price || 0
-    }
+      category: product?.category._id || "",
+      description: product?.description || "",
+      name: product?.name || "",
+      price: product?.price || 0,
+    },
   } satisfies ProductModalFormData;
 }
