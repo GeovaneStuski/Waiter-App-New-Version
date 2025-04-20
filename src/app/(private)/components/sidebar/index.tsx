@@ -15,7 +15,13 @@ export function Sidebar() {
 
   return (
     <div className="shadow- flex h-full w-[108px] flex-col items-center justify-between border-r border-zinc-100 bg-white pt-10 shadow-sidebar">
-      <Image width={41} height={29} src={Logo.src} alt="sidebar-logo" />
+      <Image
+        width={41}
+        height={29}
+        style={{ width: "auto", height: "auto" }}
+        src={Logo.src}
+        alt="sidebar-logo"
+      />
 
       <div>
         {middleTabs.map((tab) => (

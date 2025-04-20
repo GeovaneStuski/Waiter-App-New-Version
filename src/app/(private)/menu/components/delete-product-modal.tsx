@@ -51,7 +51,10 @@ export function DeleteProductModal({ product }: Props) {
         <Trash2Icon className="size-5 text-red-500" />
       </AlertDialogTrigger>
 
-      <AlertDialogContent>
+      <AlertDialogContent
+        id="delete-product-modal"
+        aria-describedby="delete-product-modal"
+      >
         <AlertDialogHeader>
           <AlertDialogTitle>Excluir Produto</AlertDialogTitle>
         </AlertDialogHeader>

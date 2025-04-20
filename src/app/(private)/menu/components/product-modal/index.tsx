@@ -71,7 +71,7 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent aria-describedby="product-modal" size="large">
+      <DialogContent aria-describedby="product-modal-description" size="large">
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit, console.error)}>
             <DialogHeader onClose={() => reset()}>
