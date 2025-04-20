@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { ProductModalCategories } from "./components/categories";
 import { priceFormatter } from "@/utils/price-formatter";
 import { queryKeys } from "@/lib/query-keys";
+import { useState } from "react";
 
 type Props = {
   buttonLabel: string | LucideIcon;
@@ -31,7 +32,9 @@ type Props = {
 };
 
 export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
-  const { form, onSubmit } = useProductModal(product);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { form, onSubmit, isLoading } = useProductModal({ product, setIsOpen });
 
   const { watch, reset, setValue, handleSubmit } = form;
 
@@ -58,14 +61,17 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
     );
 
   return (
-    <Dialog>
+    <Dialog
+      open={isOpen}
+      onOpenChange={() => setIsOpen((prevState) => !prevState)}
+    >
       <DialogTrigger asChild>
         <Button variant="destructive" className="text-sm">
           {Trigger}
         </Button>
       </DialogTrigger>
 
-      <DialogContent size="large">
+      <DialogContent aria-describedby="product-modal" size="large">
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit, console.error)}>
             <DialogHeader onClose={() => reset()}>
@@ -122,7 +128,7 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
             </div>
 
             <DialogFooter>
-              <Button type="submit">
+              <Button isLoading={isLoading} type="submit">
                 {product ? "Editar" : "Novo"} Produto
               </Button>
             </DialogFooter>

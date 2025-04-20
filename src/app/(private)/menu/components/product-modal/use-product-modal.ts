@@ -10,6 +10,13 @@ import { z } from "zod";
 import { ProductFormSchemaToProduct } from "./utils/mapper";
 import { CreateOrUpdateProductPayload } from "@/@types/repositories/product";
 import { toast } from "sonner";
+import { queryClient } from "@/lib/query-client";
+import { queryKeys } from "@/lib/query-keys";
+
+type Props = {
+  product?: Product;
+  setIsOpen: (value: boolean) => void;
+};
 
 const schema = z.object({
   product: z.object({
@@ -25,7 +32,7 @@ const schema = z.object({
 
 export type ProductModalFormData = z.infer<typeof schema>;
 
-export function useProductModal(product?: Product) {
+export function useProductModal({ product, setIsOpen }: Props) {
   const form = useForm<ProductModalFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -43,8 +50,13 @@ export function useProductModal(product?: Product) {
         console.error(error);
         toast.error("Erro ao criar o produto!");
       },
-      onSuccess: () => {
+      onSuccess: (data) => {
+        queryClient.setQueryData(
+          queryKeys.products(),
+          (oldData: Product[] | undefined) => oldData!.concat(data as Product),
+        );
         toast.success("Produto criado com sucesso!");
+        setIsOpen(false);
       },
     });
 
@@ -85,10 +97,10 @@ export function useProductModal(product?: Product) {
 function productToFormSchema(product?: Product) {
   return {
     product: {
-      id: product?._id,
+      id: product?._id || "",
       ingredients:
         product?.ingredients.map((ingredient) => ingredient._id) || [],
-      image: product?.imagePath,
+      image: product?.imagePath || null,
       category: product?.category._id || "",
       description: product?.description || "",
       name: product?.name || "",
