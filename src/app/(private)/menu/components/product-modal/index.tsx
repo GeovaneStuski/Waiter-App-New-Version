@@ -1,27 +1,34 @@
-'use client';
+"use client";
 
-import { Product } from '@/@types/entities/product';
-import { Button } from '@/components/ui/button';
-import { LucideIcon } from 'lucide-react';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { ProductModalImageContainer } from './components/image-container';
-import { ProductModalIngredients } from './components/ingredients';
-import { useQuery } from 'react-query';
-import { IngredientsRepository } from '@/repositories/ingredients-repository';
-import { useProductModal } from './use-product-modal';
-import { FormProvider } from 'react-hook-form';
-import { Field } from '@/components/field';
-import { Input } from '@/components/ui/input';
-import { FieldLabel } from '@/components/field/label';
-import { cn } from '@/lib/utils';
-import { ProductModalCategories  } from './components/categories';
-import { priceFormatter } from '@/utils/price-formatter';
-import { queryKeys } from '@/lib/query-keys';
+import { Product } from "@/@types/entities/product";
+import { Button } from "@/components/ui/button";
+import { LucideIcon } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ProductModalImageContainer } from "./components/image-container";
+import { ProductModalIngredients } from "./components/ingredients";
+import { useQuery } from "react-query";
+import { IngredientsRepository } from "@/repositories/ingredients-repository";
+import { useProductModal } from "./use-product-modal";
+import { FormProvider } from "react-hook-form";
+import { Field } from "@/components/field";
+import { Input } from "@/components/ui/input";
+import { FieldLabel } from "@/components/field/label";
+import { cn } from "@/lib/utils";
+import { ProductModalCategories } from "./components/categories";
+import { priceFormatter } from "@/utils/price-formatter";
+import { queryKeys } from "@/lib/query-keys";
 
 type Props = {
-  buttonLabel: string | LucideIcon; 
+  buttonLabel: string | LucideIcon;
   product?: Product;
-}
+};
 
 export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
   const { form, onSubmit } = useProductModal(product);
@@ -34,58 +41,76 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
   });
 
   function handleChangePrice(e: React.ChangeEvent<HTMLInputElement>) {
-    let rawValue = e.target.value.replace(/[^\d]/g, '');
-  
+    let rawValue = e.target.value.replace(/[^\d]/g, "");
+
     if (rawValue) {
       rawValue = (Number(rawValue) / 100).toFixed(2);
     }
-  
-    setValue('product.price', Number(rawValue));
-  };
 
-  const Trigger = typeof ButtonLabel === 'string' ? ButtonLabel : <ButtonLabel className="size-5 text-zinc-500"/>;
+    setValue("product.price", Number(rawValue));
+  }
+
+  const Trigger =
+    typeof ButtonLabel === "string" ? (
+      ButtonLabel
+    ) : (
+      <ButtonLabel className="size-5 text-zinc-500" />
+    );
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='destructive' className="text-sm">{Trigger}</Button>
+        <Button variant="destructive" className="text-sm">
+          {Trigger}
+        </Button>
       </DialogTrigger>
 
       <DialogContent size="large">
         <FormProvider {...form}>
-          <form onSubmit={handleSubmit(onSubmit, console.error)} >
+          <form onSubmit={handleSubmit(onSubmit, console.error)}>
             <DialogHeader onClose={() => reset()}>
-              <DialogTitle className="text-2xl font-semibold">{product ? 'Editar' : 'Novo'} Produto</DialogTitle>
+              <DialogTitle className="text-2xl font-semibold">
+                {product ? "Editar" : "Novo"} Produto
+              </DialogTitle>
             </DialogHeader>
 
-            <div className='h-[680px] w-full flex gap-4'>
-              <div className={cn('w-full', watch('product.category') ? 'space-y-[31px]' : 'space-y-4')}>
-                <ProductModalImageContainer isLoading={false}/>
+            <div className="flex h-[680px] w-full gap-4">
+              <div
+                className={cn(
+                  "w-full",
+                  watch("product.category") ? "space-y-[31px]" : "space-y-4",
+                )}
+              >
+                <ProductModalImageContainer isLoading={false} />
 
-                <Field.Root name='product.name'>
+                <Field.Root name="product.name">
                   <Field.Label>Nome do Produto</Field.Label>
 
                   <Field.Main>
-                    <Input placeholder='Ex: Quatro Queijos'/>
+                    <Input placeholder="Ex: Quatro Queijos" />
                   </Field.Main>
                 </Field.Root>
 
-                <Field.Root name='product.description'>
+                <Field.Root name="product.description">
                   <Field.Label>Descrição</Field.Label>
 
                   <Field.Main>
-                    <Input placeholder='Ex: Pizza de Quatro Queijos com borda tradicional'/>
+                    <Input placeholder="Ex: Pizza de Quatro Queijos com borda tradicional" />
                   </Field.Main>
 
                   <FieldLabel>Máximo 110 caracteres</FieldLabel>
                 </Field.Root>
 
-                <Field.Root name='product.price'>
+                <Field.Root name="product.price">
                   <Field.Label>Preço</Field.Label>
 
                   <Field.Main controller>
                     {({ field: { value } }) => (
-                      <Input value={priceFormatter(value)} onChange={handleChangePrice} placeholder='R$ 00,00'/>
+                      <Input
+                        value={priceFormatter(value)}
+                        onChange={handleChangePrice}
+                        placeholder="R$ 00,00"
+                      />
                     )}
                   </Field.Main>
                 </Field.Root>
@@ -93,11 +118,13 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
                 <ProductModalCategories />
               </div>
 
-              <ProductModalIngredients ingredients={ingredients}/>
+              <ProductModalIngredients ingredients={ingredients} />
             </div>
 
             <DialogFooter>
-              <Button type="submit">{product ? 'Editar' : 'Novo'} Produto</Button>
+              <Button type="submit">
+                {product ? "Editar" : "Novo"} Produto
+              </Button>
             </DialogFooter>
           </form>
         </FormProvider>

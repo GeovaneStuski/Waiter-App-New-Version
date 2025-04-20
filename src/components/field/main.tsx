@@ -1,10 +1,10 @@
-import { Slot } from '@radix-ui/react-slot';
-import { ComponentProps, ReactNode } from 'react';
-import { useFieldContext } from './root';
-import { Controller, useFormContext } from 'react-hook-form';
-import { cn } from '@/lib/utils';
+import { Slot } from "@radix-ui/react-slot";
+import { ComponentProps, ReactNode } from "react";
+import { useFieldContext } from "./root";
+import { Controller, useFormContext } from "react-hook-form";
+import { cn } from "@/lib/utils";
 
-type RenderFn = ComponentProps<typeof Controller>['render'];
+type RenderFn = ComponentProps<typeof Controller>["render"];
 
 type Props<TController extends boolean> = {
   controller?: TController;
@@ -30,7 +30,7 @@ export function FieldMain<TController extends boolean>({
     <Slot
       id={name}
       className={cn(
-        'group-data-[error=true]:border-red-500 group-data-[error=true]:bg-red-500/5',
+        "group-data-[error=true]:border-red-500 group-data-[error=true]:bg-red-500/5",
         className,
       )}
       {...register(name)}

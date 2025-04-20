@@ -1,5 +1,5 @@
-import { Category } from './category';
-import { Ingredient } from './ingredients';
+import { Category } from "./category";
+import { Ingredient } from "./ingredients";
 
 export type Product = {
   _id: string;
@@ -15,4 +15,4 @@ export type OrderProduct = {
   _id: string;
   quantity: number;
   product: Product;
-}
+};

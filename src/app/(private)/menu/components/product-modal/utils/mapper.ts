@@ -1,6 +1,5 @@
-import { CreateOrUpdateProductPayload } from '@/@types/repositories/product';
-import { ProductModalFormData } from '../use-product-modal';
-
+import { CreateOrUpdateProductPayload } from "@/@types/repositories/product";
+import { ProductModalFormData } from "../use-product-modal";
 
 export function ProductFormSchemaToProduct({ product }: ProductModalFormData) {
   return {

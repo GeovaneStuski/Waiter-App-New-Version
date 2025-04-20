@@ -1,7 +1,7 @@
-import { useFormContext } from 'react-hook-form';
-import { useFieldContext } from './root';
-import { AlertCircleIcon } from 'lucide-react';
-import { getNestedValue } from '@/utils/get-nested-values';
+import { useFormContext } from "react-hook-form";
+import { useFieldContext } from "./root";
+import { AlertCircleIcon } from "lucide-react";
+import { getNestedValue } from "@/utils/get-nested-values";
 
 type Props = {
   errorFeedback?: string;

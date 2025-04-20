@@ -1,6 +1,17 @@
-import { cn } from '@/lib/utils';
-import { ComponentProps } from 'react';
+import { cn } from "@/lib/utils";
+import { ComponentProps } from "react";
 
-export function OrderCardContainer({ className, ...props }: ComponentProps<'div'>) {
-  return <div {...props} className={cn('p-4 h-fit w-full flex-col flex items-center rounded-lg border border-zinc-200', className)} />;
+export function OrderCardContainer({
+  className,
+  ...props
+}: ComponentProps<"div">) {
+  return (
+    <div
+      {...props}
+      className={cn(
+        "flex h-fit w-full flex-col items-center rounded-lg border border-zinc-200 p-4",
+        className,
+      )}
+    />
+  );
 }

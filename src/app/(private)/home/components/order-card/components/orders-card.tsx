@@ -1,26 +1,39 @@
-import { Order } from '@/@types/entities/order';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { getImageByPath } from '@/utils/get-image-by-path';
-import { priceFormatter } from '@/utils/price-formatter';
+import { Order } from "@/@types/entities/order";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { getImageByPath } from "@/utils/get-image-by-path";
+import { priceFormatter } from "@/utils/price-formatter";
 
 type Props = {
   order: Order;
   status: {
     title: string;
     icon: string;
-  }
-}
+  };
+};
 
 export function OrdersCard({ order, status }: Props) {
-  const totalPrice = order.products.reduce((acc, product) => acc + (product.product.price * product.quantity), 0);
+  const totalPrice = order.products.reduce(
+    (acc, product) => acc + product.product.price * product.quantity,
+    0,
+  );
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="w-full h-32 flex-col bg-white flex justify-center items-center border zinc-200 rounded-lg">
+        <button className="zinc-200 flex h-32 w-full flex-col items-center justify-center rounded-lg border bg-white">
           <span className="text-base font-medium">Mesa {order.table}</span>
-          <span className="text-sm text-gray-400">{order.products.length} itens</span>
+          <span className="text-sm text-gray-400">
+            {order.products.length} itens
+          </span>
         </button>
       </DialogTrigger>
 
@@ -30,37 +43,48 @@ export function OrdersCard({ order, status }: Props) {
         </DialogHeader>
 
         <DialogDescription className="flex flex-col gap-2">
-          <span className="font-semibold text-sm">Status do pedido</span>
+          <span className="text-sm font-semibold">Status do pedido</span>
 
-          <span className="font-bold text-black text-base">{status.icon} {status.title}</span>
+          <span className="text-base font-bold text-black">
+            {status.icon} {status.title}
+          </span>
         </DialogDescription>
 
-
         <div className="space-y-4">
-          <span className="text-sm text-zinc-500 font-medium">Itens</span>
+          <span className="text-sm font-medium text-zinc-500">Itens</span>
 
           {order.products.map(({ _id, product, quantity }) => (
-            <div className="flex gap-3 items-center" key={_id}>
-              <img className="w-12 h-10 object-cover rounded-lg" src={getImageByPath(product.imagePath)} alt="product-image" />
+            <div className="flex items-center gap-3" key={_id}>
+              <img
+                className="h-10 w-12 rounded-lg object-cover"
+                src={getImageByPath(product.imagePath)}
+                alt="product-image"
+              />
 
-              <div className="flex gap-3 items-start">
+              <div className="flex items-start gap-3">
                 <span className="text-sm text-gray-400">{quantity}x</span>
                 <div className="flex flex-col">
-                  <span className="text-gray-800 font-semibold text-base">{product.name}</span>
-                  <span className="text-gray-500 text-sm">{priceFormatter(product.price)}</span>
+                  <span className="text-base font-semibold text-gray-800">
+                    {product.name}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {priceFormatter(product.price)}
+                  </span>
                 </div>
               </div>
             </div>
           ))}
 
-          <div className="flex justify-between items-center">
-            <span className="font-medium text-sm text-zinc-500">Total</span>
-            <span className="text-base font-semibold">{priceFormatter(totalPrice)}</span>
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-zinc-500">Total</span>
+            <span className="text-base font-semibold">
+              {priceFormatter(totalPrice)}
+            </span>
           </div>
         </div>
 
-        <DialogFooter className="flex !justify-between w-full">
-          <Button variant='destructive'>Cancelar Pedido</Button>
+        <DialogFooter className="flex w-full !justify-between">
+          <Button variant="destructive">Cancelar Pedido</Button>
           <Button className="px-14">Concluir Pedido</Button>
         </DialogFooter>
       </DialogContent>

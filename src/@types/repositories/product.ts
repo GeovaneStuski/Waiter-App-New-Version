@@ -4,5 +4,5 @@ export type CreateOrUpdateProductPayload = {
   ingredients?: string[];
   category: string;
   price: string;
-  image: string | Blob
-}
+  image: string | Blob;
+};

@@ -1,21 +1,29 @@
-'use client';
+"use client";
 
-import { FormProvider } from 'react-hook-form';
-import { useSignin } from '../useSignin';
-import { Field } from '@/components/field';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { FormProvider } from "react-hook-form";
+import { useSignin } from "../useSignin";
+import { Field } from "@/components/field";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function Form() {
   const { form, onSubmit, isLoading } = useSignin();
 
-  const { handleSubmit, formState: { errors }, watch } = form;
+  const {
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = form;
 
-  const isFormValid = Object.keys(errors).length > 0 || !watch('email') || !watch('password');
+  const isFormValid =
+    Object.keys(errors).length > 0 || !watch("email") || !watch("password");
 
   return (
     <FormProvider {...form}>
-      <form className="space-y-8" onSubmit={handleSubmit(onSubmit, console.error)}>
+      <form
+        className="space-y-8"
+        onSubmit={handleSubmit(onSubmit, console.error)}
+      >
         <Field.Root name="email">
           <Field.Label>E-mail</Field.Label>
 
@@ -36,11 +44,7 @@ export function Form() {
           <Field.Error />
         </Field.Root>
 
-        <Button
-          isLoading={isLoading}
-          disabled={isFormValid}
-          size='full'
-        >
+        <Button isLoading={isLoading} disabled={isFormValid} size="full">
           Fazer Login
         </Button>
       </form>

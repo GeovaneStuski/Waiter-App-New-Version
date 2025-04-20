@@ -1,34 +1,40 @@
-import { CircleUserIcon, HouseIcon, NotepadTextIcon, ScrollTextIcon, UsersIcon } from 'lucide-react';
+import {
+  CircleUserIcon,
+  HouseIcon,
+  NotepadTextIcon,
+  ScrollTextIcon,
+  UsersIcon,
+} from "lucide-react";
 
 export const tabs = [
   {
-    link: '/home',
-    label: 'Home',
+    link: "/home",
+    label: "Home",
     icon: HouseIcon,
-    position: 'middle'
+    position: "middle",
   },
   {
-    link: '/history',
-    label: 'Histórico',
+    link: "/history",
+    label: "Histórico",
     icon: ScrollTextIcon,
-    position: 'middle'
+    position: "middle",
   },
   {
-    link: '/menu',
-    label: 'Cardápio',
+    link: "/menu",
+    label: "Cardápio",
     icon: NotepadTextIcon,
-    position: 'middle'
+    position: "middle",
   },
   {
-    link: '/users',
-    label: 'Usuários',
+    link: "/users",
+    label: "Usuários",
     icon: UsersIcon,
-    position: 'middle'
+    position: "middle",
   },
   {
-    link: '/profile',
-    label: 'Meu perfil',
+    link: "/profile",
+    label: "Meu perfil",
     icon: CircleUserIcon,
-    position: 'bottom'
+    position: "bottom",
   },
 ] as const;
