@@ -1,14 +1,13 @@
 declare module "*.svg" {
-  import React from "react";
+  const content: StaticImageData;
+  export default content;
+}
 
-  // As a URL string (for Next.js Image src)
-  const url: string;
-  export default url;
-
-  // As a React component (for SVG inline rendering)
-  export const ReactComponent: React.FunctionComponent<
-    React.SVGProps<SVGSVGElement> & { title?: string }
-  >;
+interface StaticImageData {
+  src: string;
+  height: number;
+  width: number;
+  blurDataURL?: string;
 }
 
 declare module "*.png" {
