@@ -14,13 +14,16 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import { UtensilsCrossedIcon } from "lucide-react";
+import { ProductModal } from "@/app/(private)/menu/components/product-modal";
 
 type Props<TData> = {
   columns: ColumnDef<TData>[];
   data: TData[];
+  isLoading: boolean;
 };
 
-export function DataTable<TData>({ columns, data }: Props<TData>) {
+export function DataTable<TData>({ columns, data, isLoading }: Props<TData>) {
   const table = useReactTable({
     columns,
     data,
@@ -49,21 +52,35 @@ export function DataTable<TData>({ columns, data }: Props<TData>) {
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows.map((row) => (
-            <TableRow className="bg-white" key={row.id}>
-              {row.getAllCells().map((cell) => (
-                <TableCell
-                  style={{ width: `${cell.column.getSize()}px` }}
-                  key={cell.id}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
+        {!isLoading && data.length > 0 && (
+          <TableBody>
+            {table.getRowModel().rows.map((row) => (
+              <TableRow className="bg-white" key={row.id}>
+                {row.getAllCells().map((cell) => (
+                  <TableCell
+                    style={{ width: `${cell.column.getSize()}px` }}
+                    key={cell.id}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        )}
       </Table>
+
+      {isLoading ? (
+        <div className="flex w-full animate-pulse flex-col items-center space-y-1 py-2 font-medium">
+          <UtensilsCrossedIcon className="size-10 text-zinc-600" />
+          <span>Carregando...</span>
+        </div>
+      ) : (
+        <div className="flex justify-center space-x-1 py-4">
+          <span>Nenhum Produto cadastrado ainda? clique</span>
+          <ProductModal buttonLabel="Aqui" />
+        </div>
+      )}
     </div>
   );
 }

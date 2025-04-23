@@ -6,9 +6,10 @@ import { columns } from "./columns";
 import { ProductModal } from "../product-modal";
 import { useQuery } from "react-query";
 import { queryKeys } from "@/lib/query-keys";
+import { Spinner } from "@/components/spinner";
 
 export function ProductTable() {
-  const { data: products } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: queryKeys.products(),
     queryFn: async () => ProductsRepository.list(),
   });
@@ -18,15 +19,19 @@ export function ProductTable() {
       <header className="mb-4 flex w-full items-center justify-between">
         <div className="flex items-center gap-2">
           <h1 className="text-lg font-semibold text-zinc-800">Produtos</h1>
-          <span className="size-6 rounded-sm bg-zinc-200 text-center">
-            {products?.length}
-          </span>
+          <div className="flex size-6 items-center justify-center rounded-sm bg-zinc-200 text-center">
+            {isLoading ? <Spinner /> : products?.length}
+          </div>
         </div>
 
         <ProductModal buttonLabel="Criar Produto" />
       </header>
 
-      <DataTable data={products || []} columns={columns} />
+      <DataTable
+        isLoading={isLoading}
+        data={products || []}
+        columns={columns}
+      />
     </div>
   );
 }
