@@ -13,8 +13,6 @@ import {
 } from "@/components/ui/dialog";
 import { ProductModalImageContainer } from "./components/image-container";
 import { ProductModalIngredients } from "./components/ingredients";
-import { useQuery } from "react-query";
-import { IngredientsRepository } from "@/repositories/ingredients-repository";
 import { useProductModal } from "./use-product-modal";
 import { FormProvider } from "react-hook-form";
 import { Field } from "@/components/field";
@@ -23,7 +21,6 @@ import { FieldLabel } from "@/components/field/label";
 import { cn } from "@/lib/utils";
 import { ProductModalCategories } from "./components/categories";
 import { priceFormatter } from "@/utils/price-formatter";
-import { queryKeys } from "@/lib/query-keys";
 import { useState } from "react";
 
 type Props = {
@@ -37,11 +34,6 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
   const { form, onSubmit, isLoading } = useProductModal({ product, setIsOpen });
 
   const { watch, reset, setValue, handleSubmit } = form;
-
-  const { data: ingredients } = useQuery({
-    queryKey: queryKeys.ingredients(),
-    queryFn: async () => IngredientsRepository.list(),
-  });
 
   function handleChangePrice(e: React.ChangeEvent<HTMLInputElement>) {
     let rawValue = e.target.value.replace(/[^\d]/g, "");
@@ -130,7 +122,7 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
                 <ProductModalCategories />
               </div>
 
-              <ProductModalIngredients ingredients={ingredients} />
+              <ProductModalIngredients />
             </div>
 
             <DialogFooter>

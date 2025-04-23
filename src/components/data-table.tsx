@@ -14,8 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { UtensilsCrossedIcon } from "lucide-react";
 import { ProductModal } from "@/app/(private)/menu/components/product-modal";
+import { Loading } from "./loading";
 
 type Props<TData> = {
   columns: ColumnDef<TData>[];
@@ -71,10 +71,7 @@ export function DataTable<TData>({ columns, data, isLoading }: Props<TData>) {
       </Table>
 
       {isLoading ? (
-        <div className="flex w-full animate-pulse flex-col items-center space-y-1 py-2 font-medium">
-          <UtensilsCrossedIcon className="size-10 text-zinc-600" />
-          <span>Carregando...</span>
-        </div>
+        <Loading />
       ) : (
         <div className="flex justify-center space-x-1 py-4">
           <span>Nenhum Produto cadastrado ainda? clique</span>

@@ -1,19 +1,23 @@
 "use client";
 
-import { Ingredient } from "@/@types/entities/ingredients";
+import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { queryKeys } from "@/lib/query-keys";
+import { IngredientsRepository } from "@/repositories/ingredients-repository";
 import { useMemo, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { useQuery } from "react-query";
 
-type Props = {
-  ingredients?: Ingredient[];
-};
-
-export function ProductModalIngredients({ ingredients }: Props) {
+export function ProductModalIngredients() {
   const [searchParam, setSearchParam] = useState("");
+
+  const { data: ingredients, isLoading } = useQuery({
+    queryKey: queryKeys.ingredients(),
+    queryFn: async () => IngredientsRepository.list(),
+  });
 
   const { watch, control, setValue } = useFormContext();
 
@@ -60,11 +64,13 @@ export function ProductModalIngredients({ ingredients }: Props) {
           onChange={(event) => setSearchParam(event.target.value)}
           type="text"
           placeholder="Ex: Queijo"
+          disabled={isLoading}
         />
       </div>
 
       <div className="custom-scrollbar h-full max-h-[520px] space-y-1 overflow-y-auto">
-        {filteredIngredients &&
+        {!isLoading &&
+          filteredIngredients &&
           filteredIngredients.map(({ icon, _id, name }) => (
             <label
               data-selected={watch("product.ingredients")?.includes(_id)}
@@ -84,6 +90,12 @@ export function ProductModalIngredients({ ingredients }: Props) {
               />
             </label>
           ))}
+
+        {isLoading && (
+          <div className="flex h-full items-center">
+            <Loading customMessage="Carregando ingredientes..." />
+          </div>
+        )}
       </div>
     </div>
   );
