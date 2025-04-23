@@ -23,7 +23,7 @@ const schema = z.object({
     id: z.string().optional(),
     name: z.string().min(1, "Campo obrigatório"),
     description: z.string().min(1, "Campo obrigatório"),
-    category: z.string(),
+    category: z.string().min(1, "Campo obrigatório"),
     price: z.coerce.number().min(1, "Campo obrigatório"),
     image: z.union([
       z.string({ message: "Campo obrigatório" }),

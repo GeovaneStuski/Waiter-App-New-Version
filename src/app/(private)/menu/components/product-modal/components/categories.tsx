@@ -8,7 +8,10 @@ import { useFormContext } from "react-hook-form";
 import { useQuery } from "react-query";
 
 export function ProductModalCategories() {
-  const { watch } = useFormContext();
+  const {
+    watch,
+    formState: { errors },
+  } = useFormContext();
 
   const haveSelectedCategory = watch("product.category");
 
@@ -22,6 +25,8 @@ export function ProductModalCategories() {
       (category) => category._id == watch("product.category"),
     );
   }, [watch("product.category"), categories]);
+
+  const hasError = !!(errors?.product as any)?.category;
 
   return (
     <Field.Root
@@ -37,12 +42,15 @@ export function ProductModalCategories() {
         <Field.Main controller>
           {({ field: { onChange, value } }) =>
             !haveSelectedCategory ? (
-              <div className="grid h-full max-h-[80px] grid-cols-3 gap-2.5 overflow-y-auto">
+              <div
+                data-hasError={hasError}
+                className="group grid h-full max-h-[80px] grid-cols-3 gap-2.5 overflow-y-auto"
+              >
                 {categories?.map((category) => (
                   <button
                     onClick={() => onChange(category._id)}
                     data-selected={category._id === value}
-                    className="flex justify-center space-x-1 rounded-full border border-zinc-200 px-4 py-2.5 text-sm data-[selected=true]:border-red-500"
+                    className="flex justify-center space-x-1 rounded-full border border-zinc-200 px-4 py-2.5 text-sm data-[selected=true]:border-red-500 group-data-[hasError=true]:border-red-500 group-data-[hasError=true]:bg-red-50"
                     key={category._id}
                   >
                     <span>{category.icon}</span>
@@ -63,6 +71,8 @@ export function ProductModalCategories() {
           }
         </Field.Main>
       )}
+
+      <Field.Error />
 
       {isLoading && <Loading customMessage="Carregando categorias..." />}
     </Field.Root>
