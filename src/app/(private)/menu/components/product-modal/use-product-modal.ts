@@ -71,7 +71,15 @@ export function useProductModal({ product, setIsOpen }: Props) {
       onSuccess: (data) => {
         queryClient.setQueryData(
           queryKeys.products(),
-          (oldData: Product[] | undefined) => oldData!.concat(data as Product),
+          (oldData: Product[] | undefined) => {
+            if (!oldData) return [];
+
+            return oldData.map((product) =>
+              product._id === (data as Product)._id
+                ? (data as Product)
+                : product,
+            );
+          },
         );
         toast.success("Produto atualizado com sucesso!");
         setIsOpen(false);
