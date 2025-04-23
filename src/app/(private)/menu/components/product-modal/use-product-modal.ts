@@ -25,7 +25,10 @@ const schema = z.object({
     description: z.string().min(1, "Campo obrigatório"),
     category: z.string(),
     price: z.coerce.number().min(1, "Campo obrigatório"),
-    image: z.any(),
+    image: z.union([
+      z.string({ message: "Campo obrigatório" }),
+      z.instanceof(File),
+    ]),
     ingredients: z.array(z.string()),
   }),
 });
@@ -113,7 +116,7 @@ function productToFormSchema(product?: Product) {
       id: product?._id || "",
       ingredients:
         product?.ingredients.map((ingredient) => ingredient._id) || [],
-      image: product?.imagePath || null,
+      image: product?.imagePath || "",
       category: product?.category._id || "",
       description: product?.description || "",
       name: product?.name || "",
