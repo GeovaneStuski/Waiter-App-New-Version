@@ -70,14 +70,14 @@ export function DataTable<TData>({ columns, data, isLoading }: Props<TData>) {
         )}
       </Table>
 
-      {isLoading ? (
-        <Loading />
-      ) : (
+      {data.length < 1 && !isLoading && (
         <div className="flex justify-center space-x-1 py-4">
           <span>Nenhum Produto cadastrado ainda? clique</span>
           <ProductModal buttonLabel="Aqui" />
         </div>
       )}
+
+      {isLoading && <Loading />}
     </div>
   );
 }
