@@ -72,7 +72,7 @@ export function ProductModal({ buttonLabel: ButtonLabel, product }: Props) {
               </DialogTitle>
             </DialogHeader>
 
-            <div className="flex h-[680px] w-full gap-4">
+            <div className="flex h-[680px] w-full gap-4 overflow-y-auto pr-0.5">
               <div
                 className={cn(
                   "w-full",

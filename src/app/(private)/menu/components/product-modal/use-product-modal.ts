@@ -22,11 +22,14 @@ const schema = z.object({
   product: z.object({
     id: z.string().optional(),
     name: z.string().min(1, "Campo obrigatório"),
-    description: z.string().min(1, "Campo obrigatório"),
+    description: z
+      .string()
+      .min(1, "Campo obrigatório")
+      .max(110, "Máximo 110 caracteres"),
     category: z.string().min(1, "Campo obrigatório"),
     price: z.coerce.number().min(1, "Campo obrigatório"),
     image: z.union([
-      z.string({ message: "Campo obrigatório" }),
+      z.string().min(1, "Campo obrigatório"),
       z.instanceof(File),
     ]),
     ingredients: z.array(z.string()),
