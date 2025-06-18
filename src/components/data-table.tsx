@@ -14,7 +14,6 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { ProductModal } from "@/app/(private)/menu/components/product-modal";
 import { Loading } from "./loading";
 
 type Props<TData> = {
@@ -71,9 +70,8 @@ export function DataTable<TData>({ columns, data, isLoading }: Props<TData>) {
       </Table>
 
       {data.length < 1 && !isLoading && (
-        <div className="flex justify-center space-x-1 py-4">
-          <span>Nenhum Produto cadastrado ainda? clique</span>
-          <ProductModal buttonLabel="Aqui" />
+        <div className="flex justify-center py-4">
+          <span>Nenhum item cadastrado ainda!</span>
         </div>
       )}
 

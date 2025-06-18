@@ -11,11 +11,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "rounded-full px-12 bg-red-500 text-white font-semibold min-w-24 flex gap-2 enabled:hover:bg-red-400 enabled:active:bg-red-600",
+          "rounded-full px-7 text-base bg-red-500 text-white font-semibold min-w-24 flex gap-2 enabled:hover:bg-red-400 enabled:active:bg-red-600",
         destructive: "text-red-500 px-0 !py-0",
       },
       size: {
-        default: "py-3.5 font-semibold text-base",
+        default: "py-3.5 h-11 font-semibold text-base",
         full: "h-12 w-full",
       },
     },

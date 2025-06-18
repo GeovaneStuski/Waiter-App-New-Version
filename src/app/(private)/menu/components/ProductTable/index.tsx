@@ -3,7 +3,7 @@
 import { DataTable } from "@/components/data-table";
 import { ProductsRepository } from "@/repositories/products-repository";
 import { columns } from "./columns";
-import { ProductModal } from "../product-modal";
+import { ProductModal } from "../ProductTable/components/product-modal";
 import { useQuery } from "react-query";
 import { queryKeys } from "@/lib/query-keys";
 import { Spinner } from "@/components/spinner";

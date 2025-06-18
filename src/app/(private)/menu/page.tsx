@@ -3,11 +3,16 @@ import { PageHeader } from "../components/page-header";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProductTable } from "./components/ProductTable";
 import { TabsContent } from "@radix-ui/react-tabs";
+import { CategoryTab } from "./components/categories-tab";
 
 const tabs = [
   {
-    key: "product",
+    key: "products",
     label: "Produto",
+  },
+  {
+    key: "categories",
+    label: "Categorias",
   },
 ] as const;
 
@@ -20,7 +25,7 @@ export default function MenuPage() {
         description="Gerencie os produtos do seu estabelecimento"
       />
 
-      <Tabs defaultValue="product">
+      <Tabs defaultValue="products">
         <TabsList className="my-8 h-fit w-full justify-start rounded-none border-b border-zinc-200 bg-transparent p-0">
           {tabs.map((tab) => (
             <TabsTrigger
@@ -33,8 +38,12 @@ export default function MenuPage() {
           ))}
         </TabsList>
 
-        <TabsContent value="product">
+        <TabsContent value="products">
           <ProductTable />
+        </TabsContent>
+
+        <TabsContent value="categories">
+          <CategoryTab />
         </TabsContent>
       </Tabs>
     </div>

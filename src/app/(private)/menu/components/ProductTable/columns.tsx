@@ -5,8 +5,8 @@ import { Product } from "@/@types/entities/product";
 import { priceFormatter } from "@/utils/price-formatter";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit2Icon } from "lucide-react";
-import { ProductModal } from "../product-modal";
-import { DeleteProductModal } from "../delete-product-modal";
+import { ProductModal } from "../ProductTable/components/product-modal";
+import { DeleteProductModal } from "../ProductTable/components/delete-product-modal";
 import { getImageByPath } from "@/utils/get-image-by-path";
 
 export const columns: ColumnDef<Product>[] = [
