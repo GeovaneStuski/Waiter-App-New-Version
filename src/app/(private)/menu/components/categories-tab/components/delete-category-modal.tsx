@@ -28,9 +28,9 @@ export function DeleteCategoryModal({ category }: Props) {
     onSuccess: () => {
       queryClient.setQueryData(
         queryKeys.categories(),
-        (oldProducts?: Category[] | undefined) => {
+        (oldCategories?: Category[] | undefined) => {
           return (
-            oldProducts?.filter(
+            oldCategories?.filter(
               (oldCategory) => oldCategory._id !== category._id,
             ) || []
           );
