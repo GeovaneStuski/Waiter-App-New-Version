@@ -24,8 +24,6 @@ const cards = [
 export default async function HomePage() {
   const orders = await OrdersRepository.list();
 
-  console.log(orders);
-
   const filteredOrders = {
     DONE: orders.filter((order) => order.status === "DONE"),
     IN_PRODUCTION: orders.filter((order) => order.status === "IN_PRODUCTION"),

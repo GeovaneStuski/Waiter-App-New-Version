@@ -89,8 +89,6 @@ export function useUserModal({ user, setIsOpen }: Props) {
   async function onSubmit(data: UserModalFormData) {
     const method = user ? updateUser : createUser;
 
-    console.log({ user, data });
-
     const response = await method(UserFormSchemaToUser(data));
 
     return response;

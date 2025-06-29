@@ -100,7 +100,6 @@ export function UseCategoriesModal({ category, setIsOpen }: Props) {
 }
 
 function categoryToFormSchema(category?: Category) {
-  console.log({ category });
   return {
     category: {
       icon: category?.icon || "",
