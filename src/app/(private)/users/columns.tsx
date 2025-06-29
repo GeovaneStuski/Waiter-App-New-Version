@@ -3,6 +3,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { User } from "@/@types/entities/user";
 import { DeleteUserModal } from "./components/delete-user-modal";
+import { UserModal } from "./components/users-modal";
+import { Edit2Icon } from "lucide-react";
 
 const formatedPosition = {
   waiter: "Garçom",
@@ -13,17 +15,14 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: "Nome",
-    size: 450,
   },
   {
     accessorKey: "email",
     header: "E-mail",
-    size: 450,
   },
   {
     accessorKey: "position",
     header: "Cargo",
-    size: 450,
     cell: ({ row: { original } }) => formatedPosition[original.position],
   },
   {
@@ -33,7 +32,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row: { original } }) => {
       return (
         <div className="flex w-auto gap-10 2xl:w-10">
-          {/* <ProductModal product={original} buttonLabel={Edit2Icon} /> */}
+          <UserModal user={original} buttonLabel={Edit2Icon} />
 
           <DeleteUserModal user={original} />
         </div>

@@ -8,12 +8,14 @@ import { UsersRepository } from "@/repositories/users-repository";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
 import { Spinner } from "@/components/spinner";
+import { UserModal } from "./components/users-modal";
 
 export default function HomePage() {
   const { data: users, isLoading } = useQuery({
     queryKey: queryKeys.users(),
     queryFn: async () => UsersRepository.list(),
   });
+
   return (
     <div className="h-full w-full">
       <PageHeader
@@ -24,13 +26,13 @@ export default function HomePage() {
 
       <header className="mb-4 flex w-full items-center justify-between">
         <div className="flex items-center gap-2">
-          <h1 className="text-lg font-semibold text-zinc-800">Categorias</h1>
+          <h1 className="text-lg font-semibold text-zinc-800">Usuários</h1>
           <div className="flex size-6 items-center justify-center rounded-sm bg-zinc-200 text-center">
             {isLoading ? <Spinner /> : users?.length}
           </div>
         </div>
 
-        {/* <CategoriesModal buttonLabel="Nova Categoria" /> */}
+        <UserModal buttonLabel="Novo Usuário" />
       </header>
 
       <DataTable columns={columns} data={users || []} isLoading={isLoading} />

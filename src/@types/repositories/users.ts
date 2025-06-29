@@ -1,7 +1,4 @@
-export enum Position {
-  WAITER = "WAITER",
-  ADMIN = "ADMIN",
-}
+import { Position } from "../entities/user";
 
 export type CreateOrUpdateUserPayload = {
   name: string;

@@ -6,4 +6,7 @@ export type User = {
   position: Position;
 };
 
-export type Position = "admin" | "waiter";
+export enum Position {
+  "admin" = "admin",
+  "waiter" = "waiter",
+}
